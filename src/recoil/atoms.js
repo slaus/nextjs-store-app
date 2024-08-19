@@ -31,3 +31,8 @@ export const cartState = atom({
   key: 'cartState',
   default: [],
 });
+
+export const textState = atom({
+  key: 'textState',
+  default: 'Hello World',
+});

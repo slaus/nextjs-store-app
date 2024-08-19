@@ -1,14 +1,17 @@
+'use client';
 import React from 'react';
 import styles from "./header.module.css";
 import { BiMenuAltLeft, BiSearch, BiShoppingBag, BiStoreAlt } from "react-icons/bi";
 import Logo from '@/components/others/Logo';
 import Flex from '@/components/ui/Flex';
 import Link from "next/link";
+import { useCart } from '@/context/CartContext';
 // import { useRecoilState } from "recoil";
 // import { qtyInCartState } from "../../recoil/atoms";
 
 const Header = ({ page = "", setShowCart, setShowSearchBar, showSidebar, setShowSidebar }) => {
     // const [qtyInCart, setQtyInCart] = useRecoilState(qtyInCartState);
+    const { qtyInCart } = useCart();
 
     const handleShowCart = () => {
         setShowCart(true);
@@ -41,7 +44,7 @@ const Header = ({ page = "", setShowCart, setShowSearchBar, showSidebar, setShow
                             </button>
                             <button className={styles.cart} onClick={handleShowCart}>
                                 <BiShoppingBag size={38} />
-                                {/* <div className={styles.qty}>{qtyInCart}</div> */}
+                                <div className={styles.qty}>{qtyInCart}</div>
                             </button>
                         </>
                     ) : (
