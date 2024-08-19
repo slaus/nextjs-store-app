@@ -1,0 +1,17 @@
+._ {
+    display: grid;
+    grid-gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    margin-top: 2rem;
+    transition: all 0.3s ease 0.3s;
+}
+@media screen and (max-width: 1499px) {
+    ._ {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+}
+@media screen and (max-width: 991px) {
+    ._ {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}

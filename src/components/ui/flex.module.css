@@ -1,0 +1,11 @@
+._ {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    width: fit-content;
+}
+._.col {
+    flex-direction: column;
+    justify-content: center;
+    align-items:unset;
+}

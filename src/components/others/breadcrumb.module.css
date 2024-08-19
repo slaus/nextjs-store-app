@@ -1,0 +1,21 @@
+._ {
+    font-weight: 500;
+    font-size: 1rem;
+}
+.ol {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+}
+.li {
+    display: inline-flex;
+    align-items: center;
+    text-transform: capitalize;
+}
+.link {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1rem;
+}
