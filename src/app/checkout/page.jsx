@@ -22,18 +22,20 @@
 
 // export default Checkout;
 "use client";
+
 import React from 'react';
-import { useQtyInCart } from '@/context/AppContext';
+import { useQtySelectedItems, useGoodsInCart } from '@/context/AppContext';
 
 const Checkout = () => {
-    const { qtyInCart, setQtyInCart } = useQtyInCart();
+    const { qtySelectedItems } = useQtySelectedItems();
+    const { goodsInCart } = useGoodsInCart();
 
     return (
         <div>
             <h1>Checkout</h1>
-            <p>Total Items in Cart: {qtyInCart}</p>
+            <p>Total Items in Cart: {qtySelectedItems}</p>
             <ul>
-                {cartItems.map((item, index) => (
+                {goodsInCart.map((item, index) => (
                     <li key={index}>{item.name} - {item.price}</li>
                 ))}
             </ul>

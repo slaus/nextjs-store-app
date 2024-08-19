@@ -7,7 +7,7 @@ const Bread = () => {
     return (
         <div className={styles._}>
             <Breadcrumb />
-            <Sort />
+            {/* <Sort /> */}
         </div>
     );
 };

@@ -5,13 +5,16 @@ import Modal from '../ui/Modal';
 import CounterBtn from '../ui/CounterBtn';
 // import { useRecoilState } from "recoil";
 // import { qtyInCartState, cartState } from "../../recoil/atoms";
+import { useQtySelectedItems, useGoodsInCart } from '@/context/AppContext';
 
 const ItemsCard = ({ item }) => {
     const { id, title, price, img, offerPrice } = item;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [counter, setCounter] = useState(0);
-    const [qtyInCart, setQtyInCart] = useRecoilState(qtyInCartState);
-    const [cart, setCart] = useRecoilState(cartState);
+    // const [qtyInCart, setQtyInCart] = useRecoilState(qtyInCartState);
+    // const [cart, setCart] = useRecoilState(cartState);
+    const { qtySelectedItems, setQtySelectedItems } = useQtySelectedItems();
+    const { goodsInCart, setGoodsInCart } = useGoodsInCart();
 
     const openModal = () => {
         setIsModalOpen(!isModalOpen);
@@ -23,12 +26,12 @@ const ItemsCard = ({ item }) => {
         const newCounter = counter + 1;
         const newItem = { id, title, price, img, offerPrice, counter: newCounter };
 
-        setCart(prevCart => {
-            const updatedCart = [...prevCart, newItem];
-            return updatedCart;
+        setGoodsInCart(prevGoodsInCart => {
+            const updatedGoodsInCart = [...prevGoodsInCart, newItem];
+            return updatedGoodsInCart;
         });
 
-        await setQtyInCart(prevQtyInCart => prevQtyInCart + 1);
+        await setQtySelectedItems(prevQtySelectedItems => prevQtySelectedItems + 1);
     }
 
     return (
@@ -46,6 +49,7 @@ const ItemsCard = ({ item }) => {
                     <p className={styles.title}>{title}</p>
                 </div>
                 <div className={styles.btns}>
+                    {/* <CounterBtn id={id} counter={counter} setCounter={setCounter}  /> */}
                     <CounterBtn id={id} counter={counter} setCounter={setCounter} addProductToCart={addProductToCart} />
                 </div>
             </div>

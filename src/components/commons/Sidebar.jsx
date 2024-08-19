@@ -3,18 +3,20 @@ import styles from "./sidebar.module.css";
 import { BiMinus, BiPlus } from "react-icons/bi";
 // import { useRecoilValue, useRecoilState } from 'recoil';
 // import { itemsState, selectedCategoryState } from '../../recoil/atoms';
+import { useSelectedCategory } from '@/context/AppContext';
 
 const Sidebar = ({ showSidebar, mobile }) => {
     // const items = useRecoilValue(itemsState);
     // const uniqueCategories = [...new Set(items.map(item => item.category))];
     // const [selectedCategory, setSelectedCategory] = useRecoilState(selectedCategoryState);
+    const { selectedCategory, setSelectedCategory } = useSelectedCategory();
 
     const handleClick = (category) => {
-        // setSelectedCategory(category);
+        setSelectedCategory(category);
     };
 
     const handleShowAll = () => {
-        // setSelectedCategory('');
+        setSelectedCategory('');
     };
 
     return (

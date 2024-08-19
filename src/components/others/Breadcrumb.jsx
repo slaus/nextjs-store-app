@@ -3,9 +3,11 @@ import styles from './breadcrumb.module.css';
 // import { useRecoilValue } from 'recoil';
 // import { selectedCategoryState } from '../../recoil/atoms';
 import { BiChevronRight } from "react-icons/bi";
+import { useSelectedCategory } from '@/context/AppContext';
 
 const Breadcrumb = () => {
     // const selectedCategory = useRecoilValue(selectedCategoryState);
+    const { selectedCategory } = useSelectedCategory();
 
     return (
         <nav className={styles._}>

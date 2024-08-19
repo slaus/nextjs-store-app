@@ -31,13 +31,13 @@ export default function Home() {
 
   useEffect(() => {
     const handleResize = () => {
-        if (window.innerWidth <= 767) {
-            setShowSidebar(false);
-            setMobile(true);
-        } else {
-            setShowSidebar(true);
-            setMobile(false);
-        }
+      if (window.innerWidth <= 767) {
+        setShowSidebar(false);
+        setMobile(true);
+      } else {
+        setShowSidebar(true);
+        setMobile(false);
+      }
     };
 
     handleResize();
@@ -45,9 +45,9 @@ export default function Home() {
     window.addEventListener("resize", handleResize);
 
     return () => {
-        window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", handleResize);
     };
-}, []);
+  }, []);
 
   return (
     <>
@@ -59,19 +59,19 @@ export default function Home() {
       <div className={styles.main}>
         <Header page="home" setShowCart={setShowCart} setShowSearchBar={setShowSearchBar} showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
 
-        {showSearchBar &&
+        {/* {showSearchBar &&
           <Search setShowSearchBar={setShowSearchBar} />
-        }
+        } */}
 
-        <Sidebar showSidebar={showSidebar} mobile={mobile} />
+        {/* <Sidebar showSidebar={showSidebar} mobile={mobile} /> */}
         <Main>
           <MainContainer showSidebar={showSidebar} />
         </Main>
       </div>
 
-      {showCart &&
+      {/* {showCart &&
         <Cart setShowCart={setShowCart} />
-      }
+      } */}
 
       <Footer />
     </>

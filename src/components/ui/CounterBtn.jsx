@@ -4,10 +4,13 @@ import { BiPlus, BiMinus } from "react-icons/bi";
 import Button from '../ui/Button';
 // import { useRecoilState } from "recoil";
 // import { qtyInCartState, cartState } from "../../recoil/atoms";
+import { useQtySelectedItems, useGoodsInCart } from '@/context/AppContext';
 
 const CounterBtn = ({ id, counter, setCounter, addProductToCart }) => {
-    const [qtyInCart, setQtyInCart] = useRecoilState(qtyInCartState);
-    const [cart, setCart] = useRecoilState(cartState);
+    // const [qtyInCart, setQtyInCart] = useRecoilState(qtyInCartState);
+    // const [cart, setCart] = useRecoilState(cartState);
+    const { qtySelectedItems, setQtySelectedItems } = useQtySelectedItems();
+    const { goodsInCart, setGoodsInCart } = useGoodsInCart();
     
     //console.log(cart);
 
@@ -20,10 +23,10 @@ const CounterBtn = ({ id, counter, setCounter, addProductToCart }) => {
         setCounter(prevCounter => prevCounter - 1);
     
         if (counter === 1) {
-            setQtyInCart(prevQtyInCart => prevQtyInCart - 1);
-            setCart(prevCart => prevCart.filter(item => item.id !== id));
+            setQtySelectedItems(prevQtySelectedItems => prevQtySelectedItems - 1);
+            setGoodsInCart(prevGoodsInCart => prevGoodsInCart.filter(item => item.id !== id));
         } else {
-            const updatedCart = cart.map(item => {
+            const updatedGoodsInCart = goodsInCart.map(item => {
                 if (item.id === id) {
                     return { ...item, counter: item.counter - 1 };
                 }
@@ -31,27 +34,27 @@ const CounterBtn = ({ id, counter, setCounter, addProductToCart }) => {
                 return item;
             });
 
-            setCart(updatedCart);
+            setGoodsInCart(updatedGoodsInCart);
         }
     };
     
     const addCounter = () => {
         setCounter(prevCounter => prevCounter + 1);
 
-        const existingItemIndex = cart.findIndex(cartItem => cartItem.id === id);
+        const existingItemIndex = goodsInCart.findIndex(cartItem => cartItem.id === id);
 
         if (existingItemIndex !== -1) {
-            const updatedCart = cart.map((item, index) => {
+            const updatedGoodsInCart = goodsInCart.map((item, index) => {
                 if (index === existingItemIndex) {
                     return { ...item, counter: item.counter + 1 };
                 }
                 return item;
             });
             
-            setCart(updatedCart);
+            setGoodsInCart(updatedGoodsInCart);
         } else {
             const newItem = { id, title, price, img, offerPrice, counter: 1 };
-            setCart(prevCart => [...prevCart, newItem]);
+            setGoodsInCart(prevGoodsInCart => [...prevGoodsInCart, newItem]);
         }
     };
 

@@ -5,9 +5,11 @@ import Logo from '@/components/others/Logo';
 import Flex from '@/components/ui/Flex';
 import Link from "next/link";
 // import { useCart } from "@/context/CartContext";
+import { useQtySelectedItems } from '@/context/AppContext';
 
 const Header = ({ page = "", setShowCart, setShowSearchBar, showSidebar, setShowSidebar }) => {
     // const { qtyInCart } = useCart();
+    const { qtySelectedItems } = useQtySelectedItems();
 
     const handleShowCart = () => {
         // setShowCart(true);
@@ -40,7 +42,7 @@ const Header = ({ page = "", setShowCart, setShowSearchBar, showSidebar, setShow
                             </button>
                             <button className={styles.cart} onClick={handleShowCart}>
                                 <BiShoppingBag size={38} />
-                                {/* <div className={styles.qty}>{qtyInCart}</div> */}
+                                <div className={styles.qty}>{qtySelectedItems}</div>
                             </button>
                         </>
                     ) : (
