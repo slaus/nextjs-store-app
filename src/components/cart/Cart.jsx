@@ -4,11 +4,9 @@ import { IoCloseOutline } from "react-icons/io5";
 import Overlay from '../others/Overlay';
 import CartList from './CartList';
 import CartFooter from './CartFooter';
-import { useRecoilState } from "recoil";
-import { cartState } from "../../recoil/atoms";
 
 const Cart = ({ setShowCart }) => {
-    const [cart, setCart] = useRecoilState(cartState);
+    // const [cart, setCart] = useRecoilState(cartState);
 
     const hideCart = () => {
         setShowCart(false)

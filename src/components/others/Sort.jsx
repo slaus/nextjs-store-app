@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from "./sort.module.css";
 import { BiChevronDown, BiCheck } from "react-icons/bi"; 
-import { useRecoilState, useRecoilValue } from "recoil";
-import { itemsSortState, sortState } from "../../recoil/atoms";
+// import { useRecoilState, useRecoilValue } from "recoil";
+// import { itemsSortState, sortState } from "../../recoil/atoms";
 
 const Sort = () => {
-    const [sort, setSort] = useRecoilState(sortState);
-    const options = useRecoilValue(itemsSortState);
+    // const [sort, setSort] = useRecoilState(sortState);
+    // const options = useRecoilValue(itemsSortState);
 
     const selectSortMethod = (option) => {
         setSort(option);

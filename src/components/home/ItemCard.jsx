@@ -3,8 +3,8 @@ import styles from "./item-card.module.css";
 import Overlay from '../others/Overlay';
 import Modal from '../ui/Modal';
 import CounterBtn from '../ui/CounterBtn';
-import { useRecoilState } from "recoil";
-import { qtyInCartState, cartState } from "../../recoil/atoms";
+// import { useRecoilState } from "recoil";
+// import { qtyInCartState, cartState } from "../../recoil/atoms";
 
 const ItemsCard = ({ item }) => {
     const { id, title, price, img, offerPrice } = item;

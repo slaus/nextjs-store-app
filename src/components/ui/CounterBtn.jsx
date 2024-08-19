@@ -2,8 +2,8 @@ import React from 'react';
 import styles from "./counter-btn.module.css";
 import { BiPlus, BiMinus } from "react-icons/bi";
 import Button from '../ui/Button';
-import { useRecoilState } from "recoil";
-import { qtyInCartState, cartState } from "../../recoil/atoms";
+// import { useRecoilState } from "recoil";
+// import { qtyInCartState, cartState } from "../../recoil/atoms";
 
 const CounterBtn = ({ id, counter, setCounter, addProductToCart }) => {
     const [qtyInCart, setQtyInCart] = useRecoilState(qtyInCartState);

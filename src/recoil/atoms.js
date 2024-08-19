@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+// import { atom, selector } from 'recoil';
 import data from '../data';
 
 // ATOMS
@@ -30,9 +30,4 @@ export const qtyInCartState = atom({
 export const cartState = atom({
   key: 'cartState',
   default: [],
-});
-
-export const textState = atom({
-  key: 'textState',
-  default: 'Hello World',
 });

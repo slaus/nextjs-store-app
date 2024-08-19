@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from "./items-grid.module.css";
-import { useRecoilValue } from 'recoil';
-import { itemsState, selectedCategoryState, sortState } from '../../recoil/atoms';
+// import { useRecoilValue } from 'recoil';
+// import { itemsState, selectedCategoryState, sortState } from '../../recoil/atoms';
 import ItemsCard from './ItemCard';
 
 const ItemsGrid = () => {
-    const items = useRecoilValue(itemsState);
-    const selectedCategory = useRecoilValue(selectedCategoryState);
-    const selectedSort = useRecoilValue(sortState);
+    // const items = useRecoilValue(itemsState);
+    // const selectedCategory = useRecoilValue(selectedCategoryState);
+    // const selectedSort = useRecoilValue(sortState);
 
     const filteredItems = selectedCategory ? items.filter(item => item.category === selectedCategory) : items;
 
