@@ -33,12 +33,12 @@ const Checkout = () => {
     return (
         <div>
             <h1>Checkout</h1>
-            <p>Total Items in Cart: {qtySelectedItems}</p>
+            {/* <p>Total Items in Cart: {qtySelectedItems}</p>
             <ul>
                 {goodsInCart.map((item, index) => (
                     <li key={index}>{item.name} - {item.price}</li>
                 ))}
-            </ul>
+            </ul> */}
         </div>
     );
 };

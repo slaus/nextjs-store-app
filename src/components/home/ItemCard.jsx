@@ -3,32 +3,16 @@ import styles from "./item-card.module.css";
 import Overlay from '../others/Overlay';
 import Modal from '../ui/Modal';
 import CounterBtn from '../ui/CounterBtn';
-import { useQtySelectedItems, useGoodsInCart } from '@/context/AppContext';
+import { useIsInCart  } from '@/context/AppContext';
 
 const ItemsCard = ({ item }) => {
 
-    const { id, title, price, img, offerPrice } = item;
+    const { title, price, img, offerPrice } = item;
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [counter, setCounter] = useState(0);
-    const { qtySelectedItems, setQtySelectedItems } = useQtySelectedItems();
-    const { goodsInCart, setGoodsInCart } = useGoodsInCart();
+    const quantityInCart = useIsInCart(item);
 
     const openModal = () => {
         setIsModalOpen(!isModalOpen);
-    }
-
-    const addProductToCart = async () => {
-        await setCounter(prevCounter => prevCounter + 1);
-
-        const newCounter = counter + 1;
-        const newItem = { id, title, price, img, offerPrice, counter: newCounter };
-
-        setGoodsInCart(prevGoodsInCart => {
-            const updatedGoodsInCart = [...prevGoodsInCart, newItem];
-            return updatedGoodsInCart;
-        });
-
-        await setQtySelectedItems(prevQtySelectedItems => prevQtySelectedItems + 1);
     }
 
     return (
@@ -46,7 +30,7 @@ const ItemsCard = ({ item }) => {
                     <p className={styles.title}>{title}</p>
                 </div>
                 <div className={styles.btns}>
-                    <CounterBtn id={id} counter={counter} setCounter={setCounter} addProductToCart={addProductToCart} />
+                    <CounterBtn item={item} counter={quantityInCart} />
                 </div>
             </div>
             {isModalOpen &&

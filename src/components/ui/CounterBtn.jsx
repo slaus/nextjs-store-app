@@ -2,71 +2,40 @@ import React from 'react';
 import styles from "./counter-btn.module.css";
 import { BiPlus, BiMinus } from "react-icons/bi";
 import Button from '../ui/Button';
-import { useQtySelectedItems, useGoodsInCart } from '@/context/AppContext';
+import { useRefreshCart } from '@/context/AppContext';
 
-const CounterBtn = ({ id, counter, setCounter, addProductToCart }) => {
+const CounterBtn = ({ type = "default", counter = 0, item }) => {
 
-    const { qtySelectedItems, setQtySelectedItems } = useQtySelectedItems();
-    const { goodsInCart, setGoodsInCart } = useGoodsInCart();
-    
-    // const existingItem = goodsInCart.find(item => item.id === id);
-    // const counter = existingItem ? existingItem.counter : 0;
-    
-    const removeCounter = () => {
-        if (counter === 0) return;
-    
-        setCounter(prevCounter => prevCounter - 1);
-    
-        if (counter === 1) {
-            setQtySelectedItems(prevQtySelectedItems => prevQtySelectedItems - 1);
-            setGoodsInCart(prevGoodsInCart => prevGoodsInCart.filter(item => item.id !== id));
-        } else {
-            const updatedGoodsInCart = goodsInCart.map(item => {
-                if (item.id === id) {
-                    return { ...item, counter: item.counter - 1 };
-                }
-
-                return item;
-            });
-
-            setGoodsInCart(updatedGoodsInCart);
-        }
-    };
-    
-    const addCounter = () => {
-        setCounter(prevCounter => prevCounter + 1);
-
-        const existingItemIndex = goodsInCart.findIndex(cartItem => cartItem.id === id);
-
-        if (existingItemIndex !== -1) {
-            const updatedGoodsInCart = goodsInCart.map((item, index) => {
-                if (index === existingItemIndex) {
-                    return { ...item, counter: item.counter + 1 };
-                }
-                return item;
-            });
-            
-            setGoodsInCart(updatedGoodsInCart);
-        } else {
-            const newItem = { id, title, price, img, offerPrice, counter: 1 };
-            setGoodsInCart(prevGoodsInCart => [...prevGoodsInCart, newItem]);
-        }
-    };
+    const { refreshCart } = useRefreshCart();
+   
+    if (type === "cart") {
+        return (
+            <div className={styles._}>
+                <button type="button" className={styles.btn} onClick={() => refreshCart({ item, n: item.qty - 1 })}>
+                    <BiMinus size={22} />
+                </button>
+                <p className={styles.text}>{item.qty || 1}</p>
+                <button type="button" className={styles.btn} onClick={() => refreshCart({ item, n: item.qty + 1 })}>
+                    <BiPlus size={22} />
+                </button>
+            </div>
+        );
+    }
 
     return (
         <>
-            {counter > 0 ? (
+            {counter === 0 ? (
+                <Button type="button" onClick={() => refreshCart({ item, n: 1 })}>Add to Cart</Button>
+            ) : (
                 <div className={styles._}>
-                    <button onClick={removeCounter} type="button" className={styles.btn}>
+                    <button type="button" className={styles.btn} onClick={() => refreshCart({ item, n: counter - 1 })}>
                         <BiMinus size={22} />
                     </button>
                     <p className={styles.text}>{counter || 1}</p>
-                    <button onClick={addCounter} type="button" className={styles.btn}>
+                    <button type="button" className={styles.btn} onClick={() => refreshCart({ item, n: counter + 1 })}>
                         <BiPlus size={22} />
                     </button>
                 </div>
-            ) : (
-                <Button onClick={addProductToCart} type="button">Add to Cart</Button>
             )}
         </>
     );
