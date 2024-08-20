@@ -18,7 +18,7 @@ const CartItem = ({ item }) => {
                     <p className={styles.title}>{title}</p>
                     <p className={styles.price}>Unit Price ${(unitPrice || 0).toFixed(2)}{counter > 1 ?  " x " + counter : undefined}</p>
                     <div className={styles.btns}>
-                        <CounterBtn id={id} counter={counter} />
+                        <CounterBtn id={id} counter={counter} type="cart" />
                     </div>
                 </div>
                 <p className={styles.total}>${((unitPrice || 0) * counter).toFixed(2)}</p>

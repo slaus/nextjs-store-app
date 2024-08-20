@@ -3,16 +3,13 @@ import styles from "./item-card.module.css";
 import Overlay from '../others/Overlay';
 import Modal from '../ui/Modal';
 import CounterBtn from '../ui/CounterBtn';
-// import { useRecoilState } from "recoil";
-// import { qtyInCartState, cartState } from "../../recoil/atoms";
 import { useQtySelectedItems, useGoodsInCart } from '@/context/AppContext';
 
 const ItemsCard = ({ item }) => {
+
     const { id, title, price, img, offerPrice } = item;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [counter, setCounter] = useState(0);
-    // const [qtyInCart, setQtyInCart] = useRecoilState(qtyInCartState);
-    // const [cart, setCart] = useRecoilState(cartState);
     const { qtySelectedItems, setQtySelectedItems } = useQtySelectedItems();
     const { goodsInCart, setGoodsInCart } = useGoodsInCart();
 
@@ -49,7 +46,6 @@ const ItemsCard = ({ item }) => {
                     <p className={styles.title}>{title}</p>
                 </div>
                 <div className={styles.btns}>
-                    {/* <CounterBtn id={id} counter={counter} setCounter={setCounter}  /> */}
                     <CounterBtn id={id} counter={counter} setCounter={setCounter} addProductToCart={addProductToCart} />
                 </div>
             </div>

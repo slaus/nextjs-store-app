@@ -6,8 +6,8 @@ const Alert = () => {
     return (
         <div className={styles._}>
             <BiMessageRoundedError size={46} />
-            <div className={styles.title}>No Items Added Yet!</div>
-            <div className={styles.desc}>Lorem ipsum dolor sit amet consectetur adipisicing elit</div>
+            <div className={styles.title}>No goods in the basket!</div>
+            <div className={styles.desc}>Your cart is empty. You haven't purchased anything yet.</div>
         </div>
     );
 };

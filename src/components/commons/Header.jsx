@@ -4,23 +4,22 @@ import { BiMenuAltLeft, BiSearch, BiShoppingBag, BiStoreAlt } from "react-icons/
 import Logo from '@/components/others/Logo';
 import Flex from '@/components/ui/Flex';
 import Link from "next/link";
-// import { useCart } from "@/context/CartContext";
 import { useQtySelectedItems } from '@/context/AppContext';
 
 const Header = ({ page = "", setShowCart, setShowSearchBar, showSidebar, setShowSidebar }) => {
-    // const { qtyInCart } = useCart();
+
     const { qtySelectedItems } = useQtySelectedItems();
 
     const handleShowCart = () => {
-        // setShowCart(true);
+        setShowCart(true);
     };
 
     const handleShowSearchBar = () => {
-        // setShowSearchBar(true);
+        setShowSearchBar(true);
     };
 
     const hideShowSidebar = () => {
-        // setShowSidebar(!showSidebar);
+        setShowSidebar(!showSidebar);
     };
 
     return (

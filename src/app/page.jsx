@@ -63,15 +63,15 @@ export default function Home() {
           <Search setShowSearchBar={setShowSearchBar} />
         } */}
 
-        {/* <Sidebar showSidebar={showSidebar} mobile={mobile} /> */}
+        <Sidebar showSidebar={showSidebar} mobile={mobile} />
         <Main>
           <MainContainer showSidebar={showSidebar} />
         </Main>
       </div>
 
-      {/* {showCart &&
+      {showCart &&
         <Cart setShowCart={setShowCart} />
-      } */}
+      }
 
       <Footer />
     </>

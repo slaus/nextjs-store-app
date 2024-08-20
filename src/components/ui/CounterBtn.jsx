@@ -2,19 +2,14 @@ import React from 'react';
 import styles from "./counter-btn.module.css";
 import { BiPlus, BiMinus } from "react-icons/bi";
 import Button from '../ui/Button';
-// import { useRecoilState } from "recoil";
-// import { qtyInCartState, cartState } from "../../recoil/atoms";
 import { useQtySelectedItems, useGoodsInCart } from '@/context/AppContext';
 
 const CounterBtn = ({ id, counter, setCounter, addProductToCart }) => {
-    // const [qtyInCart, setQtyInCart] = useRecoilState(qtyInCartState);
-    // const [cart, setCart] = useRecoilState(cartState);
+
     const { qtySelectedItems, setQtySelectedItems } = useQtySelectedItems();
     const { goodsInCart, setGoodsInCart } = useGoodsInCart();
     
-    //console.log(cart);
-
-    // const existingItem = cart.find(item => item.id === id);
+    // const existingItem = goodsInCart.find(item => item.id === id);
     // const counter = existingItem ? existingItem.counter : 0;
     
     const removeCounter = () => {

@@ -2,20 +2,19 @@ import React from 'react';
 import styles from "./cart-list.module.css";
 import Alert from '../others/Alert';
 import CartItem from './CartItem';
-// import { useRecoilValue } from "recoil";
-// import { cartState } from "../../recoil/atoms";
+import { useGoodsInCart } from '@/context/AppContext';
 
 const CartList = () => {
-    // const cartItems = useRecoilValue(cartState);
-    // console.log(cartItems);
 
+    const { goodsInCart } = useGoodsInCart();
+    
     return (
         <>
-            {Object.values(cartItems) === 0 ? (
+            {Object.values(goodsInCart).length === 0 ? (
                 <Alert />
             ) : (
                 <div className={styles._}>
-                    {Object.values(cartItems).map(item => (
+                    {Object.values(goodsInCart).map(item => (
                         <CartItem item={item} key={item.id} />
                     ))}
                 </div>
