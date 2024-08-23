@@ -1,11 +1,16 @@
 import React from 'react';
 import styles from "@/components/checkout/order-details.module.css";
-import { useOrderDetails } from '@/context/AppContext';
+import { useOrderDetails, useDelivery, useDeliveryFee } from '@/context/AppContext';
 import OrderItem from '@/components/checkout/OrderItem';
 
 const OrderDetails = () => {
 
     const { cartItems, subTotal, withDelivery, shippingCost, total } = useOrderDetails();
+    const { delivery, setDelivery } = useDelivery();
+    const { deliveryFee, setDeliveryFee } = useDeliveryFee();
+    // console.log("delivery cost " + deliveryFee);
+    // console.log("shipping cost " + shippingCost);
+    // console.log("with delivery " + withDelivery);
 
     return (
         <div className={styles._}>
@@ -21,7 +26,7 @@ const OrderDetails = () => {
                     <p>Sub Total</p>
                     <p className={styles.subtotal}>$ {subTotal}</p>
                 </div>
-                {shippingCost > 0 &&
+                {withDelivery &&
                     <div className={styles.item}>
                         <p>Delivery</p>
                         <p className={styles.subtotal}>$ {withDelivery ? shippingCost : "0"}</p>

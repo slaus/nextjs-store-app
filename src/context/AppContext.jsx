@@ -110,8 +110,8 @@ export const AppProviders = ({ children }) => {
   const [goodsInCart, setGoodsInCart] = useState({});
   const [cartLength, setCartLength] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
-  const [delivery, setDelivery] = useState(false);
-  const [deliveryFee, setDeliveryFee] = useState(0);
+  const [delivery, setDelivery] = useState(true);
+  const [deliveryFee, setDeliveryFee] = useState(14);
   const [formState, setFormState] = useState({});
 
   return (

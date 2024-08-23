@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import styles from "@/components/ui/slider-checkbox.module.css";
+import {useDelivery, useDeliveryFee} from '@/context/AppContext';
 
 const SliderCheckbox = () => {
-  const [checked, setChecked] = useState(false);
+
+  const { delivery, setDelivery } = useDelivery();
+  const { deliveryFee, setDeliveryFee } = useDeliveryFee();
+  const [checked, setChecked] = useState(delivery);
+  console.log("delivery " + deliveryFee);
 
   const toggleChecked = () => {
     setChecked(!checked);
+    setDelivery(!delivery);
   };
 
   return (
