@@ -25,21 +25,34 @@
 
 import React from 'react';
 import { useQtySelectedItems, useGoodsInCart } from '@/context/AppContext';
+import Header from '@/components/commons/Header';
+import Main from "@/components/commons/Main";
+import Footer from '@/components/commons/Footer';
+import Flex from '@/components/ui/Flex';
+import styles from "@/app/page.module.css";
+import CheckoutForm from '@/components/checkout/CheckoutForm';
+import OrderDetails from '@/components/checkout/OrderDetails';
 
 const Checkout = () => {
     const { qtySelectedItems } = useQtySelectedItems();
     const { goodsInCart } = useGoodsInCart();
 
     return (
-        <div>
-            <h1>Checkout</h1>
-            {/* <p>Total Items in Cart: {qtySelectedItems}</p>
-            <ul>
-                {goodsInCart.map((item, index) => (
-                    <li key={index}>{item.name} - {item.price}</li>
-                ))}
-            </ul> */}
-        </div>
+        <>
+            <div className={styles.main}>
+                <Header />
+
+                <Main>
+                    <h1>Checkout</h1>
+                    <Flex className="w_md col_sm" style={{alignItems:'flex-start'}}>
+                        <CheckoutForm/>
+                        <OrderDetails/>
+                    </Flex>
+                </Main>
+
+            </div>
+            <Footer />
+        </>
     );
 };
 

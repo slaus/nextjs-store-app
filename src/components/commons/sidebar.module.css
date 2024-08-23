@@ -1,6 +1,6 @@
 ._ {
     width: 280px;
-    height: calc(-100px + 100vh);
+    height: calc(100vh - 100px);
     background-color: #fff;
     position: fixed;
     transform: translateX(-280px);
@@ -9,7 +9,7 @@
     top: 100px;
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
-    z-index: 2;
+    z-index: 3;
 }
 ._.open {
     transform: translateX(0px);
@@ -65,7 +65,7 @@
     top: 0px;
     width: 100vw;
     height: 100vh;
-    z-index: 1;
+    z-index: 2;
     opacity: 1;
     transition: all .3s ease 1s;
 }

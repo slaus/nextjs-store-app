@@ -1,0 +1,44 @@
+._ {
+    width: 100%;
+    height: max-content;
+    padding: 1rem;
+    order: 1;
+    margin-top: 0;
+}
+@media screen and (max-width: 767px) {
+    ._ {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+.title {
+    font-size: 1.25rem;
+    line-height: 1.25;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+}
+.hr {
+    border: 1px solid #000;
+    border-top-style: initial;
+    opacity: 0.1;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.item {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 1rem;
+    gap: 10px;
+}
+.subtotal {
+    margin-left: auto;
+    white-space: nowrap;
+}
+.total {
+    margin-left: auto;
+    font-weight: bold;
+    white-space: nowrap;
+}

@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useState, useContext, useCallback } from 'react';
+import React, { createContext, useState, useContext, useCallback, useMemo } from 'react';
 import data from '../data';
 
 // Contexts
@@ -11,7 +11,11 @@ const QtySelectedItemsContext = createContext();
 const GoodsInCartContext = createContext();
 const CartLengthContext = createContext();
 const CartTotalContext = createContext();
+const DeliveryContext = createContext();
+const DeliveryFeeContext = createContext();
+const FormStateContext = createContext();
 
+// Custom hooks for accessing contexts
 export const useItems = () => useContext(ItemsContext);
 export const useSelectedCategory = () => useContext(SelectedCategoryContext);
 export const useItemsSort = () => useContext(ItemsSortContext);
@@ -20,7 +24,11 @@ export const useQtySelectedItems = () => useContext(QtySelectedItemsContext);
 export const useGoodsInCart = () => useContext(GoodsInCartContext);
 export const useCartLength = () => useContext(CartLengthContext);
 export const useCartTotal = () => useContext(CartTotalContext);
+export const useDelivery = () => useContext(DeliveryContext);
+export const useDeliveryFee = () => useContext(DeliveryFeeContext);
+export const useFormState = () => useContext(FormStateContext);
 
+// Hook for refreshing the cart state
 export const useRefreshCart = () => {
   const { goodsInCart, setGoodsInCart } = useGoodsInCart();
   const { setQtySelectedItems } = useQtySelectedItems();
@@ -56,11 +64,41 @@ export const useRefreshCart = () => {
   return { refreshCart };
 };
 
+// Hook for checking if an item is in the cart
 export const useIsInCart = (item) => {
   const { goodsInCart } = useGoodsInCart();
   return goodsInCart[item.id] ? goodsInCart[item.id].qty : 0;
 };
 
+// Hook for getting order details
+export const useOrderDetails = () => {
+  const { goodsInCart } = useGoodsInCart();
+  const { cartTotal } = useCartTotal();
+  const { delivery } = useDelivery();
+  const { deliveryFee } = useDeliveryFee();
+  const { formState } = useFormState();
+
+  // Calculating order details
+  const orderDetails = useMemo(() => {
+    const cartItems = Object.values(goodsInCart);
+    const subTotal = cartTotal;
+    const shippingCost = delivery ? deliveryFee : 0;
+    const total = subTotal + shippingCost;
+
+    return {
+      cartItems,
+      subTotal: subTotal.toFixed(2),
+      withDelivery: delivery,
+      shippingCost: shippingCost.toFixed(2),
+      total: total.toFixed(2),
+      formData: formState,
+    };
+  }, [goodsInCart, cartTotal, delivery, deliveryFee, formState]);
+
+  return orderDetails;
+};
+
+// AppProviders component to provide all contexts
 export const AppProviders = ({ children }) => {
   const [items, setItems] = useState(data);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -72,6 +110,9 @@ export const AppProviders = ({ children }) => {
   const [goodsInCart, setGoodsInCart] = useState({});
   const [cartLength, setCartLength] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
+  const [delivery, setDelivery] = useState(false);
+  const [deliveryFee, setDeliveryFee] = useState(0);
+  const [formState, setFormState] = useState({});
 
   return (
     <ItemsContext.Provider value={{ items, setItems }}>
@@ -82,7 +123,13 @@ export const AppProviders = ({ children }) => {
               <GoodsInCartContext.Provider value={{ goodsInCart, setGoodsInCart }}>
                 <CartLengthContext.Provider value={{ cartLength, setCartLength }}>
                   <CartTotalContext.Provider value={{ cartTotal, setCartTotal }}>
-                    {children}
+                    <DeliveryContext.Provider value={{ delivery, setDelivery }}>
+                      <DeliveryFeeContext.Provider value={{ deliveryFee, setDeliveryFee }}>
+                        <FormStateContext.Provider value={{ formState, setFormState }}>
+                          {children}
+                        </FormStateContext.Provider>
+                      </DeliveryFeeContext.Provider>
+                    </DeliveryContext.Provider>
                   </CartTotalContext.Provider>
                 </CartLengthContext.Provider>
               </GoodsInCartContext.Provider>

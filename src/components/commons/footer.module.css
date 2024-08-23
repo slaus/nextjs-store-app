@@ -4,8 +4,13 @@
     height: 90px;
     color: #fff;
     position: relative;
-    z-index: 1;
+    z-index: 3;
     background-color: #2d4052;
+}
+@media screen and (max-width: 767px) {
+    ._ {
+        z-index: 1;
+    }
 }
 .block {
     display: flex;
