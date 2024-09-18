@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styles from "./item-card.module.css";
-import Overlay from '../others/Overlay';
-import Modal from '../ui/Modal';
-import CounterBtn from '../ui/CounterBtn';
+import Overlay from '@/components/others/Overlay';
+import Modal from '@/components/ui/Modal';
+import CounterBtn from '@/components/ui/CounterBtn';
 import { useIsInCart  } from '@/context/AppContext';
 
 const ItemsCard = ({ item }) => {
