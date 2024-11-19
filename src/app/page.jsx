@@ -59,9 +59,9 @@ export default function Home() {
       <div className={styles.main}>
         <Header page="home" setShowCart={setShowCart} setShowSearchBar={setShowSearchBar} showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
 
-        {/* {showSearchBar &&
+        {showSearchBar &&
           <Search setShowSearchBar={setShowSearchBar} />
-        } */}
+        }
 
         <Sidebar showSidebar={showSidebar} mobile={mobile} />
         <Main>
