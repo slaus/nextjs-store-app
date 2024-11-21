@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from "./alert.module.css";
+import styles from "./attention.module.css";
 import { BiMessageRoundedError } from "react-icons/bi";
 
-const Alert = () => {
+const Attention = () => {
     return (
         <div className={styles._}>
             <BiMessageRoundedError size={46} />
@@ -12,4 +12,4 @@ const Alert = () => {
     );
 };
 
-export default Alert;
+export default Attention;

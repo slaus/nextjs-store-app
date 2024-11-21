@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from "./cart-list.module.css";
-import Alert from '../others/Alert';
+import Attention from '../others/Attention';
 import CartItem from './CartItem';
 import { useGoodsInCart } from '@/context/AppContext';
 
@@ -11,7 +11,7 @@ const CartList = () => {
     return (
         <>
             {Object.values(goodsInCart).length === 0 ? (
-                <Alert />
+                <Attention />
             ) : (
                 <div className={styles._}>
                     {Object.values(goodsInCart).map(item => (

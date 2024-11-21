@@ -1,6 +1,12 @@
 "use client";
-import React, { createContext, useState, useContext, useCallback, useMemo } from 'react';
-import data from '../data';
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useCallback,
+  useMemo,
+} from "react";
+import data from "../data";
 
 // Contexts
 const ItemsContext = createContext();
@@ -14,6 +20,7 @@ const CartTotalContext = createContext();
 const DeliveryContext = createContext();
 const DeliveryFeeContext = createContext();
 const FormStateContext = createContext();
+const AlertContext = createContext();
 
 // Custom hooks for accessing contexts
 export const useItems = () => useContext(ItemsContext);
@@ -27,6 +34,7 @@ export const useCartTotal = () => useContext(CartTotalContext);
 export const useDelivery = () => useContext(DeliveryContext);
 export const useDeliveryFee = () => useContext(DeliveryFeeContext);
 export const useFormState = () => useContext(FormStateContext);
+export const useAlert = () => useContext(AlertContext);
 
 // Hook for refreshing the cart state
 export const useRefreshCart = () => {
@@ -35,31 +43,40 @@ export const useRefreshCart = () => {
   const { setCartLength } = useCartLength();
   const { setCartTotal } = useCartTotal();
 
-  const refreshCart = useCallback(({ item, n }) => {
-    const currentCart = { ...goodsInCart };
+  const refreshCart = useCallback(
+    ({ item, n }) => {
+      const currentCart = { ...goodsInCart };
 
-    if (n === 1) {
-      // Add item to cart
-      currentCart[item.id] = { ...item, qty: 1 };
-    } else if (n > 0 && n <= item.stock) {
-      // Update item quantity in cart
-      currentCart[item.id] = { ...item, qty: n };
-    } else if (n < 1) {
-      // Remove item from cart
-      delete currentCart[item.id];
-    }
+      if (n === 1) {
+        // Add item to cart
+        currentCart[item.id] = { ...item, qty: 1 };
+      } else if (n > 0 && n <= item.stock) {
+        // Update item quantity in cart
+        currentCart[item.id] = { ...item, qty: n };
+      } else if (n < 1) {
+        // Remove item from cart
+        delete currentCart[item.id];
+      }
 
-    const cartToArray = Object.values(currentCart);
-    let total = 0;
-    cartToArray.forEach((item) => {
-      const actualPrice = item.offerPrice || item.price;
-      total += actualPrice * item.qty;
-    });
+      const cartToArray = Object.values(currentCart);
+      let total = 0;
+      cartToArray.forEach((item) => {
+        const actualPrice = item.offerPrice || item.price;
+        total += actualPrice * item.qty;
+      });
 
-    setGoodsInCart(currentCart); // Update cart state
-    setQtySelectedItems(cartToArray.length); // Update cart length
-    setCartTotal(total); // Update cart total
-  }, [goodsInCart, setGoodsInCart, setQtySelectedItems, setCartLength, setCartTotal]);
+      setGoodsInCart(currentCart); // Update cart state
+      setQtySelectedItems(cartToArray.length); // Update cart length
+      setCartTotal(total); // Update cart total
+    },
+    [
+      goodsInCart,
+      setGoodsInCart,
+      setQtySelectedItems,
+      setCartLength,
+      setCartTotal,
+    ]
+  );
 
   return { refreshCart };
 };
@@ -101,11 +118,17 @@ export const useOrderDetails = () => {
 // AppProviders component to provide all contexts
 export const AppProviders = ({ children }) => {
   const [items, setItems] = useState(data);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [itemsSort, setItemsSort] = useState([
-    "Default", "Ascending", "Descending", "Title (A-Z)", "Title (Z-A)", "Price (Min)", "Price (Max)"
+    "Default",
+    "Ascending",
+    "Descending",
+    "Title (A-Z)",
+    "Title (Z-A)",
+    "Price (Min)",
+    "Price (Max)",
   ]);
-  const [sort, setSort] = useState('Default');
+  const [sort, setSort] = useState("Default");
   const [qtySelectedItems, setQtySelectedItems] = useState(0);
   const [goodsInCart, setGoodsInCart] = useState({});
   const [cartLength, setCartLength] = useState(0);
@@ -113,30 +136,56 @@ export const AppProviders = ({ children }) => {
   const [delivery, setDelivery] = useState(true);
   const [deliveryFee, setDeliveryFee] = useState(14);
   const [formState, setFormState] = useState({});
+  const [alert, setAlert] = useState(null);
+
+  // Функция для показа алерта
+  const showAlert = (text, type = "success") => {
+    setAlert({ text, type });
+
+    setTimeout(() => setAlert(null), 4000);
+  };
 
   return (
-    <ItemsContext.Provider value={{ items, setItems }}>
-      <SelectedCategoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
-        <ItemsSortContext.Provider value={{ itemsSort, setItemsSort }}>
-          <SortContext.Provider value={{ sort, setSort }}>
-            <QtySelectedItemsContext.Provider value={{ qtySelectedItems, setQtySelectedItems }}>
-              <GoodsInCartContext.Provider value={{ goodsInCart, setGoodsInCart }}>
-                <CartLengthContext.Provider value={{ cartLength, setCartLength }}>
-                  <CartTotalContext.Provider value={{ cartTotal, setCartTotal }}>
-                    <DeliveryContext.Provider value={{ delivery, setDelivery }}>
-                      <DeliveryFeeContext.Provider value={{ deliveryFee, setDeliveryFee }}>
-                        <FormStateContext.Provider value={{ formState, setFormState }}>
-                          {children}
-                        </FormStateContext.Provider>
-                      </DeliveryFeeContext.Provider>
-                    </DeliveryContext.Provider>
-                  </CartTotalContext.Provider>
-                </CartLengthContext.Provider>
-              </GoodsInCartContext.Provider>
-            </QtySelectedItemsContext.Provider>
-          </SortContext.Provider>
-        </ItemsSortContext.Provider>
-      </SelectedCategoryContext.Provider>
-    </ItemsContext.Provider>
+    <AlertContext.Provider value={{ alert, showAlert }}>
+      <ItemsContext.Provider value={{ items, setItems }}>
+        <SelectedCategoryContext.Provider
+          value={{ selectedCategory, setSelectedCategory }}
+        >
+          <ItemsSortContext.Provider value={{ itemsSort, setItemsSort }}>
+            <SortContext.Provider value={{ sort, setSort }}>
+              <QtySelectedItemsContext.Provider
+                value={{ qtySelectedItems, setQtySelectedItems }}
+              >
+                <GoodsInCartContext.Provider
+                  value={{ goodsInCart, setGoodsInCart }}
+                >
+                  <CartLengthContext.Provider
+                    value={{ cartLength, setCartLength }}
+                  >
+                    <CartTotalContext.Provider
+                      value={{ cartTotal, setCartTotal }}
+                    >
+                      <DeliveryContext.Provider
+                        value={{ delivery, setDelivery }}
+                      >
+                        <DeliveryFeeContext.Provider
+                          value={{ deliveryFee, setDeliveryFee }}
+                        >
+                          <FormStateContext.Provider
+                            value={{ formState, setFormState }}
+                          >
+                            {children}
+                          </FormStateContext.Provider>
+                        </DeliveryFeeContext.Provider>
+                      </DeliveryContext.Provider>
+                    </CartTotalContext.Provider>
+                  </CartLengthContext.Provider>
+                </GoodsInCartContext.Provider>
+              </QtySelectedItemsContext.Provider>
+            </SortContext.Provider>
+          </ItemsSortContext.Provider>
+        </SelectedCategoryContext.Provider>
+      </ItemsContext.Provider>
+    </AlertContext.Provider>
   );
 };

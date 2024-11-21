@@ -5,6 +5,7 @@ import Header from '@/components/commons/Header';
 import Sidebar from '@/components/commons/Sidebar';
 import Main from "@/components/commons/Main";
 import Footer from '@/components/commons/Footer';
+import Alert from "@/components/ui/Alert";
 import MainContainer from "@/components/home/MainContainer";
 import Cart from "@/components/cart/Cart";
 import Search from "@/components/others/Search";
@@ -74,6 +75,7 @@ export default function Home() {
       }
 
       <Footer />
+      <Alert />
     </>
   );
 }
