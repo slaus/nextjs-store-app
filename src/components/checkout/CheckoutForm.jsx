@@ -5,7 +5,7 @@ import SliderCheckbox from '@/components/ui/SliderCheckbox';
 import { useDelivery, useDeliveryFee, useFormState } from '@/context/AppContext';
 import { useForm } from "react-hook-form";
 import { getFormValidations } from "../../helpers";
-import ConfirmAlertModal from "@/components/others/ConfirmAlertModal";
+import ModalAlert from "@/components/others/ModalAlert";
 import Overlay from '@/components/others/Overlay';
 import Modal from '@/components/ui/Modal';
 
@@ -144,7 +144,7 @@ const CheckoutForm = () => {
             {showModal &&
                 <Overlay>
                     <Modal setIsModalOpen={setModal}>
-                        <ConfirmAlertModal showModal={showModal} setModal={setModal} />
+                        <ModalAlert showModal={showModal} setModal={setModal} />
                     </Modal>
                 </Overlay>
             }

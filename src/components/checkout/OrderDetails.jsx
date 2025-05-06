@@ -11,6 +11,7 @@ const OrderDetails = () => {
     // console.log("delivery cost " + deliveryFee);
     // console.log("shipping cost " + shippingCost);
     // console.log("with delivery " + withDelivery);
+    // console.log(cartItems, subTotal, shippingCost, total);
 
     return (
         <div className={styles._}>

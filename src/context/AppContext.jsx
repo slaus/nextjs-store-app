@@ -21,6 +21,7 @@ const DeliveryContext = createContext();
 const DeliveryFeeContext = createContext();
 const FormStateContext = createContext();
 const AlertContext = createContext();
+const SearchContext = createContext();
 
 // Custom hooks for accessing contexts
 export const useItems = () => useContext(ItemsContext);
@@ -35,6 +36,7 @@ export const useDelivery = () => useContext(DeliveryContext);
 export const useDeliveryFee = () => useContext(DeliveryFeeContext);
 export const useFormState = () => useContext(FormStateContext);
 export const useAlert = () => useContext(AlertContext);
+export const useSearch = () => useContext(SearchContext);
 
 // Hook for refreshing the cart state
 export const useRefreshCart = () => {
@@ -79,6 +81,40 @@ export const useRefreshCart = () => {
   );
 
   return { refreshCart };
+};
+
+// Reset
+export const useReset = () => {
+  const { setSelectedCategory } = useSelectedCategory();
+  const { setSort } = useSort();
+  const { setQtySelectedItems } = useQtySelectedItems();
+  const { setDelivery } = useDelivery();
+  const { setGoodsInCart } = useGoodsInCart();
+  const { setCartLength } = useCartLength();
+  const { setCartTotal } = useCartTotal();
+  const { setFormState } = useFormState();
+
+  const reset = useCallback(() => {
+    setSelectedCategory("");
+    setSort("Default");
+    setQtySelectedItems(0);
+    setDelivery(false);
+    setGoodsInCart({});
+    setCartLength(0);
+    setCartTotal(0);
+    setFormState({});
+  }, [
+    setSelectedCategory,
+    setSort,
+    setQtySelectedItems,
+    setDelivery,
+    setGoodsInCart,
+    setCartLength,
+    setCartTotal,
+    setFormState,
+  ]);
+
+  return reset;
 };
 
 // Hook for checking if an item is in the cart
@@ -133,10 +169,11 @@ export const AppProviders = ({ children }) => {
   const [goodsInCart, setGoodsInCart] = useState({});
   const [cartLength, setCartLength] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
-  const [delivery, setDelivery] = useState(true);
-  const [deliveryFee, setDeliveryFee] = useState(14);
+  const [delivery, setDelivery] = useState(false);
+  const [deliveryFee, setDeliveryFee] = useState(1.5);
   const [formState, setFormState] = useState({});
   const [alert, setAlert] = useState(null);
+  const [searchValue, setSearchValue] = useState("");
 
   // Функция для показа алерта
   const showAlert = (text, type = "success") => {
@@ -148,33 +185,19 @@ export const AppProviders = ({ children }) => {
   return (
     <AlertContext.Provider value={{ alert, showAlert }}>
       <ItemsContext.Provider value={{ items, setItems }}>
-        <SelectedCategoryContext.Provider
-          value={{ selectedCategory, setSelectedCategory }}
-        >
+        <SelectedCategoryContext.Provider value={{ selectedCategory, setSelectedCategory }}>
           <ItemsSortContext.Provider value={{ itemsSort, setItemsSort }}>
             <SortContext.Provider value={{ sort, setSort }}>
-              <QtySelectedItemsContext.Provider
-                value={{ qtySelectedItems, setQtySelectedItems }}
-              >
-                <GoodsInCartContext.Provider
-                  value={{ goodsInCart, setGoodsInCart }}
-                >
-                  <CartLengthContext.Provider
-                    value={{ cartLength, setCartLength }}
-                  >
-                    <CartTotalContext.Provider
-                      value={{ cartTotal, setCartTotal }}
-                    >
-                      <DeliveryContext.Provider
-                        value={{ delivery, setDelivery }}
-                      >
-                        <DeliveryFeeContext.Provider
-                          value={{ deliveryFee, setDeliveryFee }}
-                        >
-                          <FormStateContext.Provider
-                            value={{ formState, setFormState }}
-                          >
-                            {children}
+              <QtySelectedItemsContext.Provider value={{ qtySelectedItems, setQtySelectedItems }}>
+                <GoodsInCartContext.Provider value={{ goodsInCart, setGoodsInCart }}>
+                  <CartLengthContext.Provider value={{ cartLength, setCartLength }}>
+                    <CartTotalContext.Provider value={{ cartTotal, setCartTotal }}>
+                      <DeliveryContext.Provider value={{ delivery, setDelivery }}>
+                        <DeliveryFeeContext.Provider value={{ deliveryFee, setDeliveryFee }}>
+                          <FormStateContext.Provider value={{ formState, setFormState }}>
+                            <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+                              {children}
+                            </SearchContext.Provider>
                           </FormStateContext.Provider>
                         </DeliveryFeeContext.Provider>
                       </DeliveryContext.Provider>

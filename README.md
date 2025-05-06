@@ -34,3 +34,28 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+## 📦 Telegram Bot Setup Guide
+
+This guide explains how to set up a Telegram bot that will send order details directly to your Telegram account.
+
+---
+
+### 📌 Step 1: Create a Telegram Bot
+
+1. Open [@BotFather](https://t.me/BotFather) in Telegram.
+2. Send the command: `/newbot`
+3. Follow the prompts to:
+   - Choose a **name** for your bot
+   - Choose a **username** (must end with `bot`, e.g., `myshop_bot`)
+4. After completing the setup, you'll receive your bot **API token**.  
+   **📌 Save this token** — you'll need it later.
+
+---
+
+### 📌 Step 2: Get Your Chat ID
+
+1. Open Telegram and **send any message** to your new bot.
+2. In your browser, go to the following URL (replace `<YOUR_BOT_TOKEN>` with your actual token): https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates and the answer will be chat.id
+

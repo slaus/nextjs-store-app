@@ -1,0 +1,25 @@
+._ {}
+
+.header {
+    padding    : 1rem 1.5rem;
+    font-size  : 1.25rem;
+    font-weight: 600;
+}
+
+.desc {
+    padding: 0.5rem 1.5rem;
+    flex   : 1 1 0%;
+}
+
+.footer {
+    display         : flex;
+    -webkit-box-pack: end;
+    justify-content : flex-end;
+    padding         : 1rem 1.5rem;
+}
+
+.footer button {
+    max-width: fit-content;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
